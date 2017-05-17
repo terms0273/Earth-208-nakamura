@@ -27,51 +27,48 @@ import static org.fest.assertions.Assertions.*;
 */
 public class ApplicationTest {
 
-
-    /**
-     *ログインページの画面表示
-     *
-     */
     @Test
-    public void loginCheck() {
-        Content html = views.html.loginpage.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("LOGIN");
-        assertThat(contentAsString(html)).contains("PASS");
-        assertThat(contentAsString(html)).contains("ID");
+    public void loginTest() {
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("id", "idAdmin");
+        params.put("password", "passAdmin");
+
+        Result result = route(
+            fakeRequest(POST, "/mainpage")
+            .withFormUrlEncodedBody(params)
+        );
+
+        assertThat(status(result)).isEqualTo(SEE_OTHER);
+        assertThat(redirectLocation(result)).isEqualTo("/mainpage");
     }
 
-    /**
-     *
-     */
     @Test
-    public void loginSucces() {
-        FakeApplication app;
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("id", "admin");
-        map.put("pass", "admin");
-
-
-
+    public void setSessionTest(User id) {
 
     }
 
+    @Test
+    public void clearSessionTest() {
 
-        /**
-         *ログインページの画面表示
-         *
-         */
-        @Test
-        public void loginCheck() {
-            Content html = views.html.loginpage.render(new Form(Application.User.class));
-            assertThat(contentType(html).isEqualTo("text/html");
-            assertThat(contentAsString(html)).contains("LOGIN");
-            assertThat(contentAsString(html)).contains("PASS");
-            assertThat(contentAsString(html)).contains("ID");
-        }
+    }
 
+    @Test
+    public void updateTest() {
 
+    }
 
+    @Test
+    public void passwordUpdateTest() {
 
+    }
+
+    @Test
+    public void setSessionTest() {
+
+    }
+
+    @Test
+    public void setSessionTest() {
+
+    }
 }
