@@ -75,9 +75,19 @@ public class viewsTest {
         Content html = views.html.indexpage.render(new Form(Application.User.class));
         assertThat(contentType(html).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("INDEX");
+        assertThat(contentAsString(html)).contains("DELETE");
         assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
     }
 
+    /**
+     * メイン画面の表示テスト
+     *
+     */
+    public void meinpageCheck() {
+        Content html = views.html.meinpage.render(new Form(Application.User.class));
+        assertThat(contentType(html).isEqualTo("text/html");
+        assertThat(contentAsString(html)).contains("Current weather in Tokyo");
+    }
 
 }
