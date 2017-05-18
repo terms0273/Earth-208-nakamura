@@ -6,8 +6,7 @@
 package models;
 
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import org.hibernate.validator.constraints.NotBlank;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
@@ -27,9 +26,17 @@ public class User extends Model {
     public Long id;
 
     @NotBlank
+    @Column(unique = true)
+    public String userid;
+
+    @NotBlank
     public String nickname;
 
+    @NotBlank
     public String password;
+
+    @Column(columnDefinition ="default 'false'")
+    public boolean deleteflag;
 
     public static Finder<Long, User> find = new Finder<Long, User>(Long.class, User.class);
 }

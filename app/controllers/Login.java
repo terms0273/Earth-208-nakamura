@@ -15,9 +15,11 @@ public class Login extends Controller {
     public static Result doLogin() {
         Form<User> form = new Form(User.class).bindFromRequest();
         if(!form.hasErrors()) {
-            return redirect(routes.Application.index());
+            User user = form.get();
+            user.save();
+            return redirect(routes.ViewPage.index());
         } else {
-            return redirect(routes.Application.loginpage());
+            return redirect(routes.ViewPage.login());
         }
     }
 

@@ -14,7 +14,7 @@ public class ViewPage extends Controller {
 
     public static Result login() {
         Form<User> form = new Form(User.class);
-        return ok(loginpage.render(form));
+        return ok(login.render(form));
     }
 
     public static Result index() {
