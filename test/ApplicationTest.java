@@ -28,17 +28,47 @@ import static org.fest.assertions.Assertions.*;
 public class ApplicationTest {
 
     @Test
-    public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
+    public void loginTest() {
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("id", "idAdmin");
+        params.put("password", "passAdmin");
+
+        Result result = route(
+            fakeRequest(POST, "/mainpage")
+            .withFormUrlEncodedBody(params)
+        );
+
+        assertThat(status(result)).isEqualTo(SEE_OTHER);
+        assertThat(redirectLocation(result)).isEqualTo("/mainpage");
     }
 
     @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
+    public void setSessionTest(User id) {
+
     }
 
+    @Test
+    public void clearSessionTest() {
 
+    }
+
+    @Test
+    public void updateTest() {
+
+    }
+
+    @Test
+    public void passwordUpdateTest() {
+
+    }
+
+    @Test
+    public void setSessionTest() {
+
+    }
+
+    @Test
+    public void setSessionTest() {
+
+    }
 }
