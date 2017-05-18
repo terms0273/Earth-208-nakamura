@@ -25,45 +25,23 @@ import static org.fest.assertions.Assertions.*;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class ApplicationTest {
+public class LogoutTest extends FakeApp {
 
+    /**
+     * ログアウト処理のテスト
+     * 正常系
+     */
     @Test
-    public void doLoginTest() {
-        Map<String, String> params = new HashMap<String,String>();
-        params.put("id", "idAdmin");
-        params.put("password", "passAdmin");
-
-        Result result = route(
-            fakeRequest(POST, "/mainpage")
-            .withFormUrlEncodedBody(params)
-        );
-
-        assertThat(status(result)).isEqualTo(SEE_OTHER);
-        assertThat(redirectLocation(result)).isEqualTo("/mainpage");
-    }
-
-    @Test
-    public void setSessionTest() {
+    public void logoutTest() {
 
     }
 
+    /**
+     * セッションが正しくクリアされているかのテスト
+     * 正常系
+     */
     @Test
     public void clearSessionTest() {
-
-    }
-
-    @Test
-    public void updateTest() {
-
-    }
-
-    @Test
-    public void passwordUpdateTest() {
-
-    }
-
-    @Test
-    public void createTest() {
 
     }
 }
