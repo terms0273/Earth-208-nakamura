@@ -35,7 +35,7 @@ public class viewsTest {
      *
      */
     @Test
-    public void loginpageCheck() {
+    public void loginTest() {
         Content html = views.html.loginpage.render(new Form(Application.User.class));
         assertThat(contentType(html).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LOGIN");
@@ -47,7 +47,7 @@ public class viewsTest {
      * ユーザー登録画面の表示テスト
      *
      */
-    public void singuppageCheck() {
+    public void registerTest() {
         Content html = views.html.singuppage.render(new Form(Application.User.class));
         assertThat(contentType(html).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("CREATE");
@@ -59,7 +59,7 @@ public class viewsTest {
      * ユーザー編集画面の表示テスト
      *
      */
-    public void editpageCheck() {
+    public void editTest() {
         Content html = views.html.editpage.render(new Form(Application.User.class));
         assertThat(contentType(html).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("EDIT");
@@ -71,12 +71,11 @@ public class viewsTest {
      * ユーザー一覧画面の表示テスト
      *
      */
-    public void indexpageCheck() {
+    public void userIndexTest() {
         Content html = views.html.indexpage.render(new Form(Application.User.class));
         assertThat(contentType(html).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("INDEX");
         assertThat(contentAsString(html)).contains("DELETE");
-        assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
     }
 
@@ -84,7 +83,7 @@ public class viewsTest {
      * メイン画面の表示テスト
      *
      */
-    public void meinpageCheck() {
+    public void indexTest() {
         Content html = views.html.meinpage.render(new Form(Application.User.class));
         assertThat(contentType(html).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Current weather in Tokyo");

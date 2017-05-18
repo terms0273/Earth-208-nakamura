@@ -28,7 +28,7 @@ import static org.fest.assertions.Assertions.*;
 public class ApplicationTest {
 
     @Test
-    public void loginTest() {
+    public void doLoginTest() {
         Map<String, String> params = new HashMap<String,String>();
         params.put("id", "idAdmin");
         params.put("password", "passAdmin");
@@ -43,7 +43,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void setSessionTest(User id) {
+    public void setSessionTest() {
 
     }
 
@@ -63,12 +63,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void setSessionTest() {
-
-    }
-
-    @Test
-    public void setSessionTest() {
+    public void createTest() {
 
     }
 }
