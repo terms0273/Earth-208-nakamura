@@ -1,20 +1,6 @@
-@(loginForm: Form[models.User])
+@(indexForm: Form[models.User])
 @import helper._
 
 @main {
-    @form(action = routes.Login.doLogin) {
-        @inputText(
-            field = loginForm("userid"),
-            '_label -> "ID"
-        )
-        @inputText(
-            field = loginForm("nickname"),
-            '_label -> "NICK"
-        )
-        @inputText(
-            field = loginForm("password"),
-            '_label -> "PASS"
-        )
-        <input type="submit" value="daiki">
-    }
+    <h1>index</h1>
 }

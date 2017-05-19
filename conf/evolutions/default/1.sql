@@ -5,11 +5,11 @@
 
 create table user (
   id                        bigint auto_increment not null,
-  userid                    varchar(255),
-  nickname                  varchar(255),
+  user_id                   varchar(255),
+  nick_name                 varchar(255),
   password                  varchar(255),
-  deleteflag                default 'false',
-  constraint uq_user_userid unique (userid),
+  delete_flag               tinyint(1) default 0,
+  constraint uq_user_user_id unique (user_id),
   constraint pk_user primary key (id))
 ;
 

@@ -8,6 +8,7 @@ package models;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.NotBlank;
+import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 
@@ -25,18 +26,19 @@ public class User extends Model {
     @Id
     public Long id;
 
-    @NotBlank
+    @NotBlank(message = "入力してください。")
+    @Pattern(value = "^[A-Za-z0-9]{2,20}$", message = "2~20文字の英数字で入力してください。")
     @Column(unique = true)
-    public String userid;
+    public String userId;
 
-    @NotBlank
-    public String nickname;
+    @NotBlank(message = "入力してください。")
+    public String nickName;
 
-    @NotBlank
+    @NotBlank(message = "入力してください。")
+    @Pattern(value = "^[A-Za-z0-9]{2,20}$", message = "2~20文字の英数字で入力してください。")
     public String password;
 
-    @Column(columnDefinition ="default 'false'")
-    public boolean deleteflag;
+    public boolean deleteFlag;
 
     public static Finder<Long, User> find = new Finder<Long, User>(Long.class, User.class);
 }

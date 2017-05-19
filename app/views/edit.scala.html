@@ -1,6 +1,20 @@
-@(loginForm: Form[models.User])
+@(editForm: Form[models.User])
 @import helper._
 
 @main {
-    <h1>edit</h1>
+    @form(action = routes.UserController.update) {
+        @inputText(
+            field = editForm("userId"),
+            '_label -> "ID"
+        )
+        @inputText(
+            field = editForm("nickName"),
+            '_label -> "NICK"
+        )
+        @inputText(
+            field = editForm("password"),
+            '_label -> "PASS"
+        )
+        <input type="submit" value="CREATE">
+    }
 }

@@ -1,6 +1,21 @@
-@(loginForm: Form[models.User])
+@(registerForm: Form[models.User])
 @import helper._
 
 @main {
-    <h1>register</h1>
+    @form(action = routes.UserController.create) {
+        @inputText(
+            field = registerForm("userId"),
+            '_label -> "ID"
+        )
+        @inputText(
+            field = registerForm("nickName"),
+            '_label -> "NICK"
+        )
+        @inputText(
+            field = registerForm("password"),
+            '_label -> "PASS"
+        )
+        <input type="text">
+        <input type="submit" value="CREATE">
+    }
 }

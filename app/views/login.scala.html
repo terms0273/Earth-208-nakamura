@@ -1,6 +1,17 @@
-@(loginForm: Form[models.User])
+@(loginForm: Form[UserController.LoginForm])
 @import helper._
 
 @main {
-    <h1>login</h1>
+    <legend class="uk-legend uk-margin-xlarge-left uk-margin-top">LOGIN</legend>
+    @form(action = routes.UserController.doLogin) {
+        @inputText(
+            field = loginForm("userId"),
+            '_label -> "ID"
+        )
+        @inputText(
+            field = loginForm("password"),
+            '_label -> "PASS"
+        )
+        <input type="submit" value="LOGIN">
+    }
 }
