@@ -1,20 +1,31 @@
-@(editForm: Form[models.User])
+@(editForm: Form[dto.EditForm], editPassForm: Form[dto.EditPasswordForm])
 @import helper._
 
 @main {
     @form(action = routes.UserController.update) {
         @inputText(
             field = editForm("userId"),
-            '_label -> "ID"
+            '_label -> "USER ID"
         )
         @inputText(
             field = editForm("nickName"),
-            '_label -> "NICK"
+            '_label -> "NICK NAME"
         )
-        @inputText(
-            field = editForm("password"),
-            '_label -> "PASS"
+        <input type="submit" value="UPDATE">
+    }
+    @form(action = routes.UserController.passwordUpdate) {
+        @inputPassword(
+            field = editPassForm("password"),
+            '_label -> "OLD PASS"
         )
-        <input type="submit" value="CREATE">
+        @inputPassword(
+            field = editPassForm("newPassword"),
+            '_label -> "NEW PASS"
+        )
+        @inputPassword(
+            field = editPassForm("newRePassword"),
+            '_label -> "NEW PASS"
+        )
+        <input type="submit" value="UPDATE">
     }
 }

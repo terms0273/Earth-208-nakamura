@@ -1,6 +1,10 @@
-@(indexForm: Form[models.User])
+@()
 @import helper._
 
 @main {
     <h1>index</h1>
+    <button onclick="location.href='@routes.UserController.logout()'">LOGOUT</button>
+    <button onclick="location.href='@routes.UserController.register()'">CREATE</button>
+    <button onclick="location.href='@routes.UserController.edit()'">EDIT</button>
+    <button onclick="location.href='@routes.UserController.userIndex()'">USERINDEX</button>
 }

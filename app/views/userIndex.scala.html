@@ -1,6 +1,25 @@
-@(userIndexForm: Form[models.User])
+@(users: List[models.User])
 @import helper._
 
 @main {
-    <h1>userIndex</h1>
+    <div id="contents">
+        <table class="uk-table uk-table-hover">
+            <thead>
+                <tr>
+                    <th>USER ID</th>
+                    <th>NICK NAME</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(user <- users) {
+                    <tr>
+                        <td>@user.userId</td>
+                        <td>@user.nickName</td>
+                        <td><button onclick="location.href='@routes.UserController.delete(user.id)'">DELETE</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }

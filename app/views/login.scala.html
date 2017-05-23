@@ -1,4 +1,4 @@
-@(loginForm: Form[UserController.LoginForm])
+@(loginForm: Form[dto.LoginForm])
 @import helper._
 
 @main {
@@ -8,7 +8,7 @@
             field = loginForm("userId"),
             '_label -> "ID"
         )
-        @inputText(
+        @inputPassword(
             field = loginForm("password"),
             '_label -> "PASS"
         )

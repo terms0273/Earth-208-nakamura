@@ -1,21 +1,28 @@
-@(registerForm: Form[models.User])
+@(registerForm: Form[dto.CreateForm])
 @import helper._
 
 @main {
     @form(action = routes.UserController.create) {
         @inputText(
             field = registerForm("userId"),
-            '_label -> "ID"
+            '_label -> "USER ID"
         )
         @inputText(
             field = registerForm("nickName"),
-            '_label -> "NICK"
+            '_label -> "NICK NAME"
         )
-        @inputText(
+        @inputPassword(
             field = registerForm("password"),
             '_label -> "PASS"
         )
-        <input type="text">
+        @inputPassword(
+            field = registerForm("rePassword"),
+            '_label -> "PASS"
+        )
+        @inputRadioGroup(
+            field = registerForm("type"),
+            options = Seq("0" -> "あり", "1" -> "なし")
+        )
         <input type="submit" value="CREATE">
     }
 }

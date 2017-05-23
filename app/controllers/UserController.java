@@ -11,7 +11,9 @@ import static play.data.Form.*;
 import play.mvc.*;
 
 import views.html.*;
-import util.BCrypt;
+import services.*;
+import dto.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserController extends Controller {
 
@@ -20,11 +22,11 @@ public class UserController extends Controller {
 
         User user = null;
         if(!form.hasErrors()) {
-            String uId = form.get().userId;
-            String pass = form.get().password;
-            user = User.find.where().eq("userId", uId).eq("password", pass).findUnique();
+            LoginCheck logincheck = new LoginCheck();
 
-            if(!(user == null)) {
+            user = logincheck.check(form);
+
+            if(user != null) {
                 setSession(user);
                 return redirect(routes.UserController.index());
             } else {
@@ -36,12 +38,13 @@ public class UserController extends Controller {
     }
 
     public static void setSession(User user) {
-        session("id",String.valueOf(user.id));
-
-        System.out.println(session("id"));
+        session("id", String.valueOf(user.id));
+        session("nickName", user.nickName);
+        session("type", String.valueOf(user.type));
     }
 
     public static Result logout() {
+        clearSession();
         Form<LoginForm> form = new Form(LoginForm.class);
         return ok(login.render(form));
     }
@@ -53,12 +56,19 @@ public class UserController extends Controller {
     //create
 
     public static Result create() {
-        Form<User> form = new Form(User.class).bindFromRequest();
+        Form<CreateForm> form = new Form(CreateForm.class).bindFromRequest();
+
+        User user = null;
         if(!form.hasErrors()) {
-            User user = form.get();
-            user.password = BCrypt.hashpw(user.password, BCrypt.gensalt());
-            user.save();
-            return redirect(routes.UserController.index());
+            CreateCheck createcheck = new CreateCheck();
+
+            user = createcheck.check(form);
+            if (user != null) {
+                user.save();
+                return redirect(routes.UserController.index());
+            } else {
+                return badRequest(register.render(form));
+            }
         } else {
             return badRequest(register.render(form));
         }
@@ -66,54 +76,68 @@ public class UserController extends Controller {
 
     //read
 
-    public static class LoginForm {
-        @NotBlank(message = "入力してください。")
-        public String userId;
-        @NotBlank(message = "入力してください。")
-        public String password;
-    }
-
     public static Result login() {
         Form<LoginForm> form = new Form(LoginForm.class);
         return ok(login.render(form));
     }
 
     public static Result index() {
-        Form<User> form = new Form(User.class);
-        return ok(index.render(form));
+        return ok(index.render());
     }
 
     public static Result register() {
-        Form<User> form = new Form(User.class);
+        Form<CreateForm> form = new Form(CreateForm.class);
         return ok(register.render(form));
     }
 
     public static Result edit() {
-        Form<User> form = new Form(User.class);
-        return ok(edit.render(form));
+        User requestUser = User.find.byId(Long.parseLong(session("id")));
+        EditForm ef = new EditForm();
+
+        ef.userId = requestUser.userId;
+        ef.nickName = requestUser.nickName;
+
+        Form<EditForm> eForm = new Form(EditForm.class).fill(ef);
+        Form<EditPasswordForm> epForm = new Form(EditPasswordForm.class);
+
+        return ok(edit.render(eForm, epForm));
     }
 
     public static Result userIndex() {
-        Form<User> form = new Form(User.class);
-        return ok(userIndex.render(form));
+        List<User> users = User.find.where().eq("deleteFlag", false).findList();
+        return ok(userIndex.render(users));
     }
 
     //update
 
     public static Result update() {
-        Form<User> form = new Form(User.class);
-        return ok(index.render(form));
+        Form<EditPasswordForm> epForm = new Form(EditPasswordForm.class);
+        Form<EditForm> eForm = new Form(EditForm.class).bindFromRequest();
+
+        if(!eForm.hasErrors()) {
+            User requestUser = User.find.byId(Long.parseLong(session("id")));
+
+            requestUser.userId = eForm.get().userId;
+            requestUser.nickName = eForm.get().nickName;
+
+            requestUser.update();
+        } else {
+            return badRequest(edit.render(eForm, epForm));
+        }
+        return ok(index.render());
     }
 
     public static Result passwordUpdate() {
-        Form<User> form = new Form(User.class);
-        return ok(index.render(form));
+        Form<EditPasswordForm> form = new Form(EditPasswordForm.class).bindFromRequest();
+        return ok(index.render());
     }
 
     //delete
 
-    public static Result delete() {
-        Form<User> form = new Form(User.class);
-        return ok(index.render(form));
+    public static Result delete(Long id) {
+        User requestUser = User.find.byId(id);
+        requestUser.deleteFlag = true;
+        requestUser.update();
+        return redirect(routes.UserController.index());
     }
 }
