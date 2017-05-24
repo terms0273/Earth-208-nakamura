@@ -3,9 +3,11 @@
 
 @main {
     @form(action = routes.UserController.create) {
+        @CSRF.formField
         @inputText(
             field = registerForm("userId"),
-            '_label -> "USER ID"
+            '_label -> "USER ID",
+            '_help -> ""
         )
         @inputText(
             field = registerForm("nickName"),
@@ -13,7 +15,8 @@
         )
         @inputPassword(
             field = registerForm("password"),
-            '_label -> "PASS"
+            '_label -> "PASS",
+            '_help -> ""
         )
         @inputPassword(
             field = registerForm("rePassword"),
@@ -25,4 +28,5 @@
         )
         <input type="submit" value="CREATE">
     }
+    <button onclick="location.href='@routes.UserController.index()'">戻る</button>
 }

@@ -3,9 +3,11 @@
 
 @main {
     @form(action = routes.UserController.update) {
+        @CSRF.formField
         @inputText(
             field = editForm("userId"),
-            '_label -> "USER ID"
+            '_label -> "USER ID",
+            '_help -> ""
         )
         @inputText(
             field = editForm("nickName"),
@@ -14,13 +16,16 @@
         <input type="submit" value="UPDATE">
     }
     @form(action = routes.UserController.passwordUpdate) {
+        @CSRF.formField
         @inputPassword(
             field = editPassForm("password"),
-            '_label -> "OLD PASS"
+            '_label -> "OLD PASS",
+            '_help -> ""
         )
         @inputPassword(
             field = editPassForm("newPassword"),
-            '_label -> "NEW PASS"
+            '_label -> "NEW PASS",
+            '_help -> ""
         )
         @inputPassword(
             field = editPassForm("newRePassword"),
@@ -28,4 +33,5 @@
         )
         <input type="submit" value="UPDATE">
     }
+    <button onclick="location.href='@routes.UserController.index()'">戻る</button>
 }

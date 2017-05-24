@@ -1,8 +1,9 @@
-@()
+@(nickName: String)
 @import helper._
 
 @main {
     <h1>index</h1>
+    <h2>@nickName</h2>
     <button onclick="location.href='@routes.UserController.logout()'">LOGOUT</button>
     <button onclick="location.href='@routes.UserController.register()'">CREATE</button>
     <button onclick="location.href='@routes.UserController.edit()'">EDIT</button>
