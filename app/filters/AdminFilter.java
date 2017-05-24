@@ -15,9 +15,11 @@ public class AdminFilter extends Security.Authenticator {
             return null;
         }
 
-        User user = User.find.byId(Long.parseLong(ctx.session().get("id")));
+        if(ctx.session().get("type").equals("true")) {
+            return null;
+        }
 
-        return user.type == false ? "0" : null;
+        return "0";
     }
 
     @Override

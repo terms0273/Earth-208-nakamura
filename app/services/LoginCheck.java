@@ -10,7 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class LoginCheck {
     public User check(Form<LoginForm> form) {
         User user = null;
-        user = User.find.where().eq("userId", form.get().userId).findUnique();
+        user = User.find.where().eq("userId", form.get().userId).eq("deleteFlag", false).findUnique();
 
         if(user == null) {
             return null;
