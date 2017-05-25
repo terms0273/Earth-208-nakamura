@@ -17,6 +17,12 @@ import play.i18n.Lang;
 import play.libs.F;
 import play.libs.F.*;
 
+import play.data.*;
+import static play.data.Form.*;
+import models.User;
+import views.html.*;
+import dto.*;
+
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
@@ -36,8 +42,9 @@ public class viewsTest {
      */
     @Test
     public void loginTest() {
-        Content html = views.html.loginpage.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html");
+        Content html = login.render(new Form(LoginForm.class));
+        assertThat(contentType(html).isEqualTo("text/html"));
+        assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LOGIN");
         assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
@@ -48,8 +55,8 @@ public class viewsTest {
      *
      */
     public void registerTest() {
-        Content html = views.html.singuppage.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html");
+        Content html = register.render(new Form(Application.User.class));
+        assertThat(contentType(html).isEqualTo("text/html"));
         assertThat(contentAsString(html)).contains("CREATE");
         assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
@@ -60,8 +67,8 @@ public class viewsTest {
      *
      */
     public void editTest() {
-        Content html = views.html.editpage.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html");
+        Content html = edit.render(new Form(Application.User.class));
+        assertThat(contentType(html).isEqualTo("text/html"));
         assertThat(contentAsString(html)).contains("EDIT");
         assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
@@ -72,8 +79,8 @@ public class viewsTest {
      *
      */
     public void userIndexTest() {
-        Content html = views.html.indexpage.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html");
+        Content html = userIndex.render(new Form(Application.User.class));
+        assertThat(contentType(html).isEqualTo("text/html"));
         assertThat(contentAsString(html)).contains("INDEX");
         assertThat(contentAsString(html)).contains("DELETE");
         assertThat(contentAsString(html)).contains("ID");
@@ -84,8 +91,8 @@ public class viewsTest {
      *
      */
     public void indexTest() {
-        Content html = views.html.meinpage.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html");
+        Content html = index.render(new Form(Application.User.class));
+        assertThat(contentType(html).isEqualTo("text/html"));
         assertThat(contentAsString(html)).contains("Current weather in Tokyo");
     }
 

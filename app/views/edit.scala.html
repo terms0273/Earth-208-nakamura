@@ -13,7 +13,7 @@
             field = editForm("nickName"),
             '_label -> "NICK NAME"
         )
-        <input type="submit" value="UPDATE">
+        <input type="submit" value="UPDATE" class="uk-button uk-button-primary">
     }
     @form(action = routes.UserController.passwordUpdate) {
         @CSRF.formField
@@ -31,7 +31,7 @@
             field = editPassForm("newRePassword"),
             '_label -> "NEW PASS"
         )
-        <input type="submit" value="UPDATE">
+        <input type="submit" value="UPDATE" class="uk-button uk-button-primary">
     }
-    <button onclick="location.href='@routes.UserController.index()'">戻る</button>
+    <button class="uk-button uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
 }

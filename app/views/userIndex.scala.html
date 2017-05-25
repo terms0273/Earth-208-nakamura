@@ -2,6 +2,9 @@
 @import helper._
 
 @main {
+    <header id="header">
+        <h1 class="uk-heading-primary uk-text-muted">UserList</h1>
+    </header>
     <div id="contents">
         <table class="uk-table uk-table-hover">
             <thead>
@@ -16,11 +19,11 @@
                     <tr>
                         <td>@user.userId</td>
                         <td>@user.nickName</td>
-                        <td><button onclick="location.href='@routes.UserController.delete(user.id)'">DELETE</button></td>
+                        <td><button class="uk-button uk-button-primary" onclick="location.href='@routes.UserController.delete(user.id)'">DELETE</button></td>
                     </tr>
                 }
             </tbody>
         </table>
-        <button onclick="location.href='@routes.UserController.index()'">戻る</button>
+        <button class="uk-button uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
     </div>
 }

@@ -7,12 +7,14 @@
         @CSRF.formField
         @inputText(
             field = loginForm("userId"),
-            '_label -> "ID"
+            '_label -> "ID",
+            '_class -> "uk-margin-xlarge-left"
         )
         @inputPassword(
             field = loginForm("password"),
-            '_label -> "PASS"
+            '_label -> "PASS",
+            '_class -> "uk-margin-xlarge-left"
         )
-        <input type="submit" value="LOGIN">
+        <input type="submit" value="LOGIN" class="uk-margin-xlarge-left uk-button uk-button-primary">
     }
 }

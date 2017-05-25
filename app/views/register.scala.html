@@ -24,9 +24,9 @@
         )
         @inputRadioGroup(
             field = registerForm("type"),
-            options = Seq("0" -> "あり", "1" -> "なし")
+            options = Seq("0" -> "管理者", "1" -> "なし")
         )
-        <input type="submit" value="CREATE">
+        <input type="submit" value="CREATE" class="uk-button uk-button-primary">
     }
-    <button onclick="location.href='@routes.UserController.index()'">戻る</button>
+    <button class="uk-button uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
 }

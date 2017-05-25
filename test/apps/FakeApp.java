@@ -1,7 +1,7 @@
 package apps;
 
-import com.avaja.ebean.Ebean;
-import net.sf.*;
+import com.avaje.ebean.Ebean;
+import net.sf.ehcache.*;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import play.test.FakeApplication;
@@ -46,7 +46,7 @@ public class FakeApp {
     }
 
     @AfterClass
-    public start void stopApp() {
+    public static void stopApp() {
         stop(app);
     }
 }

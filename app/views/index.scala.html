@@ -2,10 +2,14 @@
 @import helper._
 
 @main {
-    <h1>index</h1>
-    <h2>@nickName</h2>
-    <button onclick="location.href='@routes.UserController.logout()'">LOGOUT</button>
-    <button onclick="location.href='@routes.UserController.register()'">CREATE</button>
-    <button onclick="location.href='@routes.UserController.edit()'">EDIT</button>
-    <button onclick="location.href='@routes.UserController.userIndex()'">USERINDEX</button>
+    <header id="header">
+        <h1 class="uk-heading-primary uk-text-muted">Index</h1>
+    </header>
+    <p>@nickName</p>
+    <div class="uk-margin-xlarge-left">
+        <div><button class="uk-margin-top uk-button uk-button-primary" onclick="location.href='@routes.UserController.logout()'">LOGOUT</button></div>
+        <div><button class="uk-margin-top uk-button uk-button-primary" onclick="location.href='@routes.UserController.register()'">CREATE</button></div>
+        <div><button class="uk-margin-top uk-button uk-button-primary" onclick="location.href='@routes.UserController.edit()'">EDIT</button></div>
+        <div><button class="uk-margin-top uk-button uk-button-primary" onclick="location.href='@routes.UserController.userIndex()'">USERINDEX</button></div>
+    </div>
 }

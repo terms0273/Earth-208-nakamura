@@ -38,8 +38,8 @@ public class UserController extends Controller {
         }
     }
 
-    public static void setSession(User user) {
-        session("id", String.valueOf(user.id));
+    private static void setSession(User user) {
+        session("id", user.id.toString());
         session("nickName", user.nickName);
         session("type", String.valueOf(user.type));
     }
@@ -51,7 +51,7 @@ public class UserController extends Controller {
         return redirect(routes.UserController.login());
     }
 
-    public static void clearSession() {
+    private static void clearSession() {
         session().clear();
     }
 
