@@ -1,12 +1,20 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.avaje.ebean.*;
+
 import models.User;
 import org.junit.*;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;
+import org.mindrot.jbcrypt.BCrypt;
+import apps.FakeApp;
 
-public class UserTest extends FakeApp{
+public class UserTest extends FakeApp {
 
     /**
      *
@@ -16,14 +24,19 @@ public class UserTest extends FakeApp{
      */
     @Test
     public void setUserTest() {
-        User user = new User("idAdmin", "nickAdmin", "passAdmin");
+        User user = new User();
+        user.userId = "admin";
+        user.nickName = "admin";
+        user.password = BCrypt.hashpw("admin", BCrypt.gensalt());
+        user.type = false;
         user.save();
 
-        String sql = " SELECT * FROM user WHERE id = :id";
+        String sql = "SELECT * FROM user WHERE id = :id";
 
-        List<SqlRow> sqlRows = Ebean.createSqlQuery(sql).setParameter("id", "idAdmin").findList();
-        assertThat(result.get(0).getString("nickname")).isEqualTo("nickAdmin");
-        assertThat(result.get(0).getString("password")).isEqualTo("passAdmin");
+        List<SqlRow> result = Ebean.createSqlQuery(sql).setParameter("id", 1L).findList();
+        assertThat(result.get(0).getString("userId")).isEqualTo("admin");
+        assertThat(result.get(0).getString("nickName")).isEqualTo("admin");
+        assertThat(BCrypt.checkpw("admin", result.get(0).getString("password"))).isEqualTo(true);
     }
 
     /**
@@ -34,12 +47,20 @@ public class UserTest extends FakeApp{
      */
     @Test
     public void getUserTest() {
-        User user = new User("idAdmin", "nickAdmin", "passAdmin");
-        user.save();
 
-        User requestUser = User.find.byId("idAdmin");
+        String sql = "INSERT INTO user (user_id, nick_name, password, type) VALUES (:user_id, :nick_name, :password, :type)";
 
-        assertThat(requestUser.nickname).isEqualTo("nickAdmin");
-        assertThat(requestUser.password).isEqualTo("passAdmin");
+        List<SqlRow> sqlRows = Ebean.createSqlQuery(sql)
+                                .setParameter("user_id", "Admin")
+                                .setParameter("nick_name", "Admin")
+                                .setParameter("password", BCrypt.hashpw("admin", BCrypt.gensalt()))
+                                .setParameter("type", false)
+                                .findList();
+
+        User result = User.find.byId(1L);
+
+        assertThat(result.userId).isEqualTo("admin");
+        assertThat(result.nickName).isEqualTo("admin");
+        assertThat(BCrypt.checkpw("admin", result.password)).isEqualTo(true);
     }
 }

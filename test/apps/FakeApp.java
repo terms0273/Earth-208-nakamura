@@ -1,6 +1,6 @@
 package apps;
 
-import com.avaje.ebean.Ebean;
+import com.avaje.ebean.*;
 import net.sf.ehcache.*;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
@@ -16,7 +16,7 @@ public class FakeApp {
 
     @BeforeClass
     public static void startApp() throws IOException {
-        app = fakeApplication(inMemoryDatabase());
+        app = fakeApplication(inMemoryDatabase(), new GlobalTest());
         start(app);
         String evolutionContent = FileUtils.readFileToString(app.getWrappedApplication()
                                             .getFile("conf/evolutions/default/1.sql"));

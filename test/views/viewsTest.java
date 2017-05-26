@@ -22,10 +22,15 @@ import static play.data.Form.*;
 import models.User;
 import views.html.*;
 import dto.*;
+import apps.FakeApp;
+
+import org.specs2.mock.Mockito;
 
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
+import play.filters.csrf.CSRF;
+import play.filters.csrf.CSRFConf$;
 
 /**
 *
@@ -33,7 +38,9 @@ import static org.fest.assertions.Assertions.*;
 * If you are interested in mocking a whole application, see the wiki for more details.
 *
 */
-public class viewsTest {
+public class ViewsTest extends FakeApp {
+
+
 
 
     /**
@@ -42,8 +49,16 @@ public class viewsTest {
      */
     @Test
     public void loginTest() {
-        Content html = login.render(new Form(LoginForm.class));
-        assertThat(contentType(html).isEqualTo("text/html"));
+
+        // Map<String, String> body = new HashMap<String, String>();
+        // String csrf_token = tokenProvider.generateToken();
+        // body.put(CSRF.TokenName(), csrf_token);
+        // Result result = callAction(controllers.routes.ref.Application.save() ,  fakeRequest().withFormUrlEncodedBody(body).withSession(CSRF.TokenName(), csrf_token));
+
+
+        Form<LoginForm> form = new Form(LoginForm.class);
+
+        Content html = login.render(form);
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("LOGIN");
         assertThat(contentAsString(html)).contains("PASS");
@@ -54,9 +69,10 @@ public class viewsTest {
      * ユーザー登録画面の表示テスト
      *
      */
+    @Test
     public void registerTest() {
-        Content html = register.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html"));
+        Content html = register.render(new Form(CreateForm.class));
+        assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("CREATE");
         assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
@@ -66,9 +82,10 @@ public class viewsTest {
      * ユーザー編集画面の表示テスト
      *
      */
+    @Test
     public void editTest() {
-        Content html = edit.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html"));
+        Content html = edit.render(new Form(EditForm.class), new Form(EditPasswordForm.class));
+        assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("EDIT");
         assertThat(contentAsString(html)).contains("PASS");
         assertThat(contentAsString(html)).contains("ID");
@@ -78,9 +95,11 @@ public class viewsTest {
      * ユーザー一覧画面の表示テスト
      *
      */
+    @Test
     public void userIndexTest() {
-        Content html = userIndex.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html"));
+        List<User> users = User.find.where().eq("deleteFlag", false).findList();
+        Content html = userIndex.render(users);
+        assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("INDEX");
         assertThat(contentAsString(html)).contains("DELETE");
         assertThat(contentAsString(html)).contains("ID");
@@ -90,9 +109,10 @@ public class viewsTest {
      * メイン画面の表示テスト
      *
      */
+    @Test
     public void indexTest() {
-        Content html = index.render(new Form(Application.User.class));
-        assertThat(contentType(html).isEqualTo("text/html"));
+        Content html = index.render("admin");
+        assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Current weather in Tokyo");
     }
 
