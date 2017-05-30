@@ -2,36 +2,41 @@
 @import helper._
 
 @main {
-    @form(action = routes.UserController.update) {
-        @CSRF.formField
-        @inputText(
-            field = editForm("userId"),
-            '_label -> "USER ID",
-            '_help -> ""
-        )
-        @inputText(
-            field = editForm("nickName"),
-            '_label -> "NICK NAME"
-        )
-        <input type="submit" value="UPDATE" class="uk-button uk-button-primary">
-    }
-    @form(action = routes.UserController.passwordUpdate) {
-        @CSRF.formField
-        @inputPassword(
-            field = editPassForm("password"),
-            '_label -> "OLD PASS",
-            '_help -> ""
-        )
-        @inputPassword(
-            field = editPassForm("newPassword"),
-            '_label -> "NEW PASS",
-            '_help -> ""
-        )
-        @inputPassword(
-            field = editPassForm("newRePassword"),
-            '_label -> "NEW PASS"
-        )
-        <input type="submit" value="UPDATE" class="uk-button uk-button-primary">
-    }
-    <button class="uk-button uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
+    <header id="header">
+        <h1 class="uk-margin-left uk-heading-primary">Edit</h1>
+    </header>
+    <div id="main" class="uk-margin-left uk-margin-right uk-padding">
+        @form(action = routes.UserController.update) {
+            @CSRF.formField
+            @inputText(
+                field = editForm("userId"),
+                '_label -> "USER ID",
+                '_help -> ""
+            )
+            @inputText(
+                field = editForm("nickName"),
+                '_label -> "NICK NAME"
+            )
+            <input type="submit" value="UPDATE" class="uk-button uk-margin-top uk-button-primary">
+        }
+        @form(action = routes.UserController.passwordUpdate) {
+            @CSRF.formField
+            @inputPassword(
+                field = editPassForm("password"),
+                '_label -> "OLD PASS",
+                '_help -> ""
+            )
+            @inputPassword(
+                field = editPassForm("newPassword"),
+                '_label -> "NEW PASS",
+                '_help -> ""
+            )
+            @inputPassword(
+                field = editPassForm("newRePassword"),
+                '_label -> "NEW PASS"
+            )
+            <input type="submit" value="UPDATE" class="uk-button uk-button-primary">
+        }
+    </div>
+    <button class="uk-button uk-margin-left uk-margin-top uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
 }
