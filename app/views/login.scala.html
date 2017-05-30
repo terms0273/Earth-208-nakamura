@@ -10,15 +10,13 @@
             @CSRF.formField
             @inputText(
                 field = loginForm("userId"),
-                '_label -> "ID",
-                '_class -> "uk-margin-xlarge-left"
+                '_label -> "ID"
             )
             @inputPassword(
                 field = loginForm("password"),
-                '_label -> "PASS",
-                '_class -> "uk-margin-xlarge-left"
+                '_label -> "PASS"
             )
-            <input type="submit" value="LOGIN" class="uk-margin-xlarge-left uk-button uk-button-primary">
+            <input type="submit" value="LOGIN" class="uk-button uk-button-primary">
         }
     </div>
 }
