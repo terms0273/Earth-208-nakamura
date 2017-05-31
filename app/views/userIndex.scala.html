@@ -1,0 +1,29 @@
+@(users: List[models.User])
+@import helper._
+
+@main {
+    <header id="header">
+        <h1 class="uk-margin-left uk-heading-primary">UserList</h1>
+    </header>
+    <div id="main" class="uk-margin-left uk-margin-right uk-padding">
+        <table class="uk-table uk-table-striped uk-table-hover">
+            <thead>
+                <tr>
+                    <th>USER ID</th>
+                    <th>NICK NAME</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(user <- users) {
+                    <tr>
+                        <td>@user.userId</td>
+                        <td>@user.nickName</td>
+                        <td><button class="uk-button uk-button-primary" onclick="location.href='@routes.UserController.delete(user.id)'">DELETE</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <button class="uk-button uk-margin-left uk-margin-top uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
+}

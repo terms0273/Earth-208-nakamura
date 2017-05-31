@@ -1,0 +1,37 @@
+@(registerForm: Form[dto.CreateForm])
+@import helper._
+
+@main {
+    <header id="header">
+        <h1 class="uk-margin-left uk-heading-primary">Register</h1>
+    </header>
+    <div id="main" class="uk-margin-left uk-margin-right uk-padding">
+        @form(action = routes.UserController.create) {
+            @CSRF.formField
+            @inputText(
+                field = registerForm("userId"),
+                '_label -> "USER ID",
+                '_help -> ""
+            )
+            @inputText(
+                field = registerForm("nickName"),
+                '_label -> "NICK NAME"
+            )
+            @inputPassword(
+                field = registerForm("password"),
+                '_label -> "PASS",
+                '_help -> ""
+            )
+            @inputPassword(
+                field = registerForm("rePassword"),
+                '_label -> "PASS"
+            )
+            @inputRadioGroup(
+                field = registerForm("type"),
+                options = Seq("0" -> "管理者", "1" -> "なし")
+            )
+            <input type="submit" value="CREATE" class="uk-button uk-button-primary">
+        }
+    </div>
+    <button class="uk-button uk-button-primary uk-margin-top uk-margin-left" onclick="location.href='@routes.UserController.index()'">戻る</button>
+}

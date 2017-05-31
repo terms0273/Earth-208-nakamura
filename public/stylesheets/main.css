@@ -1,0 +1,26 @@
+html {
+    background-color: rgb(153, 251, 154);
+}
+
+header {
+    background-color: rgb(36, 179, 54);
+}
+
+h1 {
+    color: white;
+}
+
+#main {
+    background-color: white;
+    border-radius:5px;
+}
+
+.uk-button-primary {
+    border-radius:5px;
+}
+
+.uk-button-primary:hover {
+	background-color: #fff;
+	border-color: #59b1eb;
+	color: #59b1eb;
+}

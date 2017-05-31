@@ -3,7 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.UserController.login()
+GET     /index                      controllers.UserController.index()
+GET     /register                   controllers.UserController.register()
+GET     /edit                       controllers.UserController.edit()
+GET     /userIndex                  controllers.UserController.userIndex()
+GET     /logout                     controllers.UserController.logout()
+POST    /doLogin                    controllers.UserController.doLogin()
+POST    /update                     controllers.UserController.update()
+POST    /passwordUpdate             controllers.UserController.passwordUpdate()
+POST    /create                     controllers.UserController.create()
+GET     /delete:id                  controllers.UserController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

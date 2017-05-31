@@ -1,0 +1,22 @@
+@(loginForm: Form[dto.LoginForm])
+@import helper._
+
+@main {
+    <header id="header">
+        <h1 class="uk-margin-left uk-heading-primary">Login</h1>
+    </header>
+    <div id="main" class="uk-margin-left uk-margin-right uk-padding">
+        @form(action = routes.UserController.doLogin) {
+            @CSRF.formField
+            @inputText(
+                field = loginForm("userId"),
+                '_label -> "ID"
+            )
+            @inputPassword(
+                field = loginForm("password"),
+                '_label -> "PASS"
+            )
+            <input type="submit" value="LOGIN" class="uk-button uk-button-primary">
+        }
+    </div>
+}
