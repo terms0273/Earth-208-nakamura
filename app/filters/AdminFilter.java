@@ -11,11 +11,15 @@ public class AdminFilter extends Security.Authenticator {
 
     @Override
     public String getUsername(Context ctx) {
-        if(ctx.session().get("id") == null) {
+        Long id = Long.parseLong(ctx.session().get("id"));
+        if(id == null) {
             return null;
         }
 
-        if(ctx.session().get("type").equals("true")) {
+        User user = User.find.byId(id);
+        boolean type = user.type;
+
+        if(type == true) {
             return null;
         }
 

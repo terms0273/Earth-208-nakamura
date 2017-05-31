@@ -40,8 +40,6 @@ public class UserController extends Controller {
 
     private static void setSession(User user) {
         session("id", user.id.toString());
-        session("nickName", user.nickName);
-        session("type", String.valueOf(user.type));
     }
 
     @Security.Authenticated(LoginFilter.class)
@@ -61,7 +59,9 @@ public class UserController extends Controller {
     public static Result create() {
         Form<CreateForm> form = new Form(CreateForm.class).bindFromRequest();
 
-        User user = null;
+        User user = User.find.byId(Long.parseLong(session("id")));
+        String nickName = user.nickName;
+
         if(!form.hasErrors()) {
             CreateCheck createcheck = new CreateCheck();
 
@@ -70,10 +70,10 @@ public class UserController extends Controller {
                 user.save();
                 return redirect(routes.UserController.index());
             } else {
-                return badRequest(register.render(form));
+                return badRequest(register.render(nickName, form));
             }
         } else {
-            return badRequest(register.render(form));
+            return badRequest(register.render(nickName, form));
         }
     }
 
@@ -86,13 +86,17 @@ public class UserController extends Controller {
 
     @Security.Authenticated(LoginFilter.class)
     public static Result index() {
-        return ok(index.render(session("nickName")));
+        User user = User.find.byId(Long.parseLong(session("id")));
+        return ok(index.render(user.nickName));
     }
 
     @Security.Authenticated(AdminFilter.class)
     public static Result register() {
+        User user = User.find.byId(Long.parseLong(session("id")));
+
         Form<CreateForm> form = new Form(CreateForm.class);
-        return ok(register.render(form));
+
+        return ok(register.render(user.nickName, form));
     }
 
     @Security.Authenticated(LoginFilter.class)
@@ -106,13 +110,16 @@ public class UserController extends Controller {
         Form<EditForm> eForm = new Form(EditForm.class).fill(ef);
         Form<EditPasswordForm> epForm = new Form(EditPasswordForm.class);
 
-        return ok(edit.render(eForm, epForm));
+        return ok(edit.render(user.nickName, eForm, epForm));
     }
 
     @Security.Authenticated(AdminFilter.class)
     public static Result userIndex() {
-        List<User> users = User.find.where().eq("deleteFlag", false).findList();
-        return ok(userIndex.render(users));
+        User user = User.find.byId(Long.parseLong(session("id")));
+
+        List<User> users = User.find.where().eq("deleteFlag", false).ne("id", Long.parseLong(session("id"))).findList();
+
+        return ok(userIndex.render(user.nickName, users));
     }
 
     //update
@@ -122,18 +129,20 @@ public class UserController extends Controller {
         Form<EditForm> eForm = new Form(EditForm.class).bindFromRequest();
         Form<EditPasswordForm> epForm = new Form(EditPasswordForm.class);
 
+        User user = User.find.byId(Long.parseLong(session("id")));
+        String nickName = user.nickName;
+
         if(!eForm.hasErrors()) {
             UpdateCheck uc = new UpdateCheck();
-            User user = uc.check(eForm, Long.parseLong(session("id")));
+            user = uc.check(eForm, Long.parseLong(session("id")));
 
             if(user != null) {
-                setSession(user);
                 user.update();
                 return redirect(routes.UserController.index());
             }
-            return badRequest(edit.render(eForm, epForm));
+            return badRequest(edit.render(nickName, eForm, epForm));
         } else {
-            return badRequest(edit.render(eForm, epForm));
+            return badRequest(edit.render(nickName, eForm, epForm));
         }
     }
 
@@ -142,17 +151,20 @@ public class UserController extends Controller {
         Form<EditForm> eForm = new Form(EditForm.class);
         Form<EditPasswordForm> epForm = new Form(EditPasswordForm.class).bindFromRequest();
 
+        User user = User.find.byId(Long.parseLong(session("id")));
+        String nickName = user.nickName;
+
         if(!epForm.hasErrors()) {
             PasswordUpdateCheck puc = new PasswordUpdateCheck();
-            User user = puc.check(epForm, Long.parseLong(session("id")));
+            user = puc.check(epForm, Long.parseLong(session("id")));
 
             if(user != null) {
                 user.update();
                 return redirect(routes.UserController.index());
             }
-            return badRequest(edit.render(eForm, epForm));
+            return badRequest(edit.render(nickName, eForm, epForm));
         } else {
-            return badRequest(edit.render(eForm, epForm));
+            return badRequest(edit.render(nickName, eForm, epForm));
         }
     }
 

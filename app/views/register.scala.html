@@ -1,9 +1,17 @@
-@(registerForm: Form[dto.CreateForm])
+@(nickName: String, registerForm: Form[dto.CreateForm])
 @import helper._
 
 @main {
     <header id="header">
-        <h1 class="uk-margin-left uk-heading-primary">Register</h1>
+        <div class="uk-grid">
+            <div class="uk-width-4-5">
+                <h1 class="uk-margin-left uk-heading-primary">Register</h1>
+            </div>
+            <div class="uk-margin-top">@nickName</div>
+            <div>
+                <button class="uk-margin-top uk-button uk-button-primary" onclick="location.href='@routes.UserController.logout()'">LOGOUT</button>
+            </div>
+        </div>
     </header>
     <div id="main" class="uk-margin-left uk-margin-right uk-padding">
         @form(action = routes.UserController.create) {
