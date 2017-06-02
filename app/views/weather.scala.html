@@ -1,10 +1,18 @@
-@()
+@(nickName: String)
 
 @main{
     <div id="main" class="uk-margin-left uk-margin-right uk-padding">
         <div class="uk-flex uk-flex-column uk-margin">
             <header id="header">
-                <h1 class="uk-heading-line uk-margin-left uk-heading-primary"><span id="city-name">Current weather in</span></h1>
+                <div class="uk-grid">
+                    <div class="uk-width-4-5">
+                        <h1 class="uk-margin-left uk-heading-primary"><span id="city-name">Current weather in</span></h1>
+                    </div>
+                    <div class="uk-margin-top">@nickName</div>
+                    <div>
+                        <button class="uk-margin-top uk-button uk-button-primary" onclick="location.href='@routes.UserController.logout()'">LOGOUT</button>
+                    </div>
+                </div>
             </header>
             <div id="alert-area"></div>
             <div class=" uk-margin uk-flex">
@@ -92,6 +100,7 @@
             <div id="map-contents">
                 <div id="map"></div>
             </div>
+            <button class="uk-button uk-margin-left uk-margin-top uk-button-primary" onclick="location.href='@routes.UserController.index()'">戻る</button>
         </div>
     </div>
     <script src="@routes.Assets.at("javascripts/main.js")" charset="UTF-8" type="text/javascript"></script>
