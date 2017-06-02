@@ -1,9 +1,14 @@
 html {
-    background-color: rgb(153, 251, 154);
+    background-color: #93ff93;
 }
 
 header {
-    background-color: rgb(36, 179, 54);
+    background-color: #008000;
+    color: white;
+}
+
+#cityName-print {
+    background-color: #00cc33;
     color: white;
 }
 

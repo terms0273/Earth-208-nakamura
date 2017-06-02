@@ -122,12 +122,6 @@ public class UserController extends Controller {
         return ok(userIndex.render(user.nickName, users));
     }
 
-    @Security.Authenticated(LoginFilter.class)
-    public static Result weather() {
-        User user = User.find.byId(Long.parseLong(session("id")));
-        return ok(weather.render(user.nickName));
-    }
-
     //update
 
     @Security.Authenticated(LoginFilter.class)
