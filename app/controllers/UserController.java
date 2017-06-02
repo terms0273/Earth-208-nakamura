@@ -31,10 +31,10 @@ public class UserController extends Controller {
                 setSession(user);
                 return redirect(routes.UserController.index());
             } else {
-                return badRequest(login.render(form));
+                return badRequest(login.render("ユーザーID・パスワードに誤りがあるか、登録されていません", form));
             }
         } else {
-            return badRequest(login.render(form));
+            return badRequest(login.render("", form));
         }
     }
 
@@ -70,10 +70,10 @@ public class UserController extends Controller {
                 user.save();
                 return redirect(routes.UserController.index());
             } else {
-                return badRequest(register.render(nickName, form));
+                return badRequest(register.render(createcheck.message, nickName, form));
             }
         } else {
-            return badRequest(register.render(nickName, form));
+            return badRequest(register.render("", nickName, form));
         }
     }
 
@@ -81,7 +81,7 @@ public class UserController extends Controller {
 
     public static Result login() {
         Form<LoginForm> form = new Form(LoginForm.class);
-        return ok(login.render(form));
+        return ok(login.render("", form));
     }
 
     @Security.Authenticated(LoginFilter.class)
@@ -96,7 +96,7 @@ public class UserController extends Controller {
 
         Form<CreateForm> form = new Form(CreateForm.class);
 
-        return ok(register.render(user.nickName, form));
+        return ok(register.render("", user.nickName, form));
     }
 
     @Security.Authenticated(LoginFilter.class)
@@ -110,7 +110,7 @@ public class UserController extends Controller {
         Form<EditForm> eForm = new Form(EditForm.class).fill(ef);
         Form<EditPasswordForm> epForm = new Form(EditPasswordForm.class);
 
-        return ok(edit.render(user.nickName, eForm, epForm));
+        return ok(edit.render("", user.nickName, eForm, epForm));
     }
 
     @Security.Authenticated(AdminFilter.class)
@@ -140,9 +140,9 @@ public class UserController extends Controller {
                 user.update();
                 return redirect(routes.UserController.index());
             }
-            return badRequest(edit.render(nickName, eForm, epForm));
+            return badRequest(edit.render("そのIDは既に使われています", nickName, eForm, epForm));
         } else {
-            return badRequest(edit.render(nickName, eForm, epForm));
+            return badRequest(edit.render("", nickName, eForm, epForm));
         }
     }
 
@@ -162,9 +162,9 @@ public class UserController extends Controller {
                 user.update();
                 return redirect(routes.UserController.index());
             }
-            return badRequest(edit.render(nickName, eForm, epForm));
+            return badRequest(edit.render(puc.getMessage(), nickName, eForm, epForm));
         } else {
-            return badRequest(edit.render(nickName, eForm, epForm));
+            return badRequest(edit.render("", nickName, eForm, epForm));
         }
     }
 

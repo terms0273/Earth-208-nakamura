@@ -1,4 +1,4 @@
-@(nickName: String, registerForm: Form[dto.CreateForm])
+@(message: String, nickName: String, registerForm: Form[dto.CreateForm])
 @import helper._
 
 @main {
@@ -13,6 +13,7 @@
             </div>
         </div>
     </header>
+    <p id="message" class="uk-margin-left">@message</p>
     <div id="main" class="uk-margin-left uk-margin-right uk-padding">
         @form(action = routes.UserController.create) {
             @CSRF.formField

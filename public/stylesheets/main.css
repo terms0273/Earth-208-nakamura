@@ -25,3 +25,7 @@ h1 {
 	border-color: #59b1eb;
 	color: #59b1eb;
 }
+
+#message {
+    color: red;
+}

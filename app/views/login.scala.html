@@ -1,10 +1,11 @@
-@(loginForm: Form[dto.LoginForm])
+@(message: String, loginForm: Form[dto.LoginForm])
 @import helper._
 
 @main {
     <header id="header">
         <h1 class="uk-margin-left uk-heading-primary">Login</h1>
     </header>
+    <p id="message" class="uk-margin-left">@message</p>
     <div id="main" class="uk-margin-left uk-margin-right uk-padding">
         @form(action = routes.UserController.doLogin) {
             @CSRF.formField
