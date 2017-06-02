@@ -122,6 +122,10 @@ public class UserController extends Controller {
         return ok(userIndex.render(user.nickName, users));
     }
 
+    public static Result weather() {
+        return ok(weather.render());
+    }
+
     //update
 
     @Security.Authenticated(LoginFilter.class)

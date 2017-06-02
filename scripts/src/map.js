@@ -42,7 +42,7 @@ export default class Map {
         });
 
         this.map = L.map("map", {
-            center: [35.41, 139.46],
+            center: [35.69, 139.69],
             zoom: 16,
             layers: [std]
         });
@@ -67,5 +67,9 @@ export default class Map {
         this.map.on('resize', () => {
             this.map.invalidateSize();
         });
+    }
+
+    changeLocation(lat, lon) {
+        this.map.setView(new L.latLng(lat,lon), 16);
     }
 }

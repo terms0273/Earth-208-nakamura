@@ -15,9 +15,9 @@ $(function() {
         if(e.keyCode === 13){
             let newCity = $('#input-city').val();
             weather.city = newCity;
-            weather.send(newCity);
+            weather.send(newCity, map);
         }
     });
 
-    $("#city-name").text(weather.city);
+    weather.send(weather.city);
 });

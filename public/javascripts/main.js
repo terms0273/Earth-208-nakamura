@@ -135,7 +135,7 @@ var Map = function () {
             });
 
             this.map = _leaflet2.default.map("map", {
-                center: [35.41, 139.46],
+                center: [35.69, 139.69],
                 zoom: 16,
                 layers: [std]
             });
@@ -160,6 +160,11 @@ var Map = function () {
             this.map.on('resize', function () {
                 _this.map.invalidateSize();
             });
+        }
+    }, {
+        key: "changeLocation",
+        value: function changeLocation(lat, lon) {
+            this.map.setView(new _leaflet2.default.latLng(lat, lon), 16);
         }
     }]);
 
@@ -197,10 +202,18 @@ var Weather = function () {
             $('#city-name').text(this.city);
             $('#weather').text(json.weather[0].description);
             $('#weather-icon').html("<img src='http://openweathermap.org/img/w/" + json.weather[0].icon + ".png'></img>");
+            $('#temperature').text(Math.round(json.main.temp - 273.15) + "℃");
+            $('#wind').text(json.wind.speed + "m/s");
+            $('#cloud').text(json.clouds.all + "%");
+            $('#pressure').text(json.main.pressure + "hPa");
+            $('#humidity').text(json.main.humidity + "%");
+            $('#sunset').text(new Date(json.sys.sunset * 1000));
+            $('#sunrise').text(new Date(json.sys.sunrise * 1000));
+            $('#latlon').text("lat:" + json.coord.lat + "  lon:" + json.coord.lon);
         }
     }, {
         key: 'send',
-        value: function send(cityName) {
+        value: function send(cityName, map) {
             var _this = this;
 
             var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=8ee47547bd73be2f27e5afb68162ecd8';
@@ -210,6 +223,7 @@ var Weather = function () {
             }).then(function (json) {
                 _this.print(json);
                 console.log(json);
+                map.changeLocation(json.coord.lat, json.coord.lon);
             }, function (err) {
                 console.log(err);
             });
@@ -252,11 +266,11 @@ $(function () {
         if (e.keyCode === 13) {
             var newCity = $('#input-city').val();
             weather.city = newCity;
-            weather.send(newCity);
+            weather.send(newCity, map);
         }
     });
 
-    $("#city-name").text(weather.city);
+    weather.send(weather.city);
 });
 
 /***/ }),
